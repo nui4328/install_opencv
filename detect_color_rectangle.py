@@ -20,7 +20,7 @@ while True:
         break
 
    # แปลงรูปเป็นระบบสี HSV
-    hsv_image = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
+    hsv_image = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
 
     # กำหนดช่วงของสีน้ำเงินในระบบสี HSV
     lower_blue = np.array([90, 100, 100])  # ค่าสีน้ำเงินต่ำสุด (Hue, Saturation, Value)
@@ -31,7 +31,6 @@ while True:
 
     # ค้นหาเส้นขอบ
     contours, _ = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-    contours, _ = cv2.findContours(frame, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 
     # วาดกรอบรอบวัตถุที่พบ
     for contour in contours:
