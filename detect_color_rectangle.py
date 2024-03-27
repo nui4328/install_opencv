@@ -19,15 +19,15 @@ while True:
         print("ไม่สามารถอ่านภาพจากกล้องได้")
         break
 
-    # แปลงภาพจาก BGR เป็น HSV
-    hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+   # แปลงรูปเป็นระบบสี HSV
+    hsv_image = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
 
-    # กำหนดช่วงสีที่ต้องการจับ (ในที่นี้เป็นสีแดง)
-    lower_red = np.array([0, 100, 100])
-    upper_red = np.array([10, 255, 255])
+    # กำหนดช่วงของสีน้ำเงินในระบบสี HSV
+    lower_blue = np.array([90, 100, 100])  # ค่าสีน้ำเงินต่ำสุด (Hue, Saturation, Value)
+    upper_blue = np.array([130, 255, 255])  # ค่าสีน้ำเงินสูงสุด (Hue, Saturation, Value)
 
-    # สร้างมาส์ค (mask) โดยใช้ช่วงสีที่กำหนด
-    mask = cv2.inRange(hsv, lower_red, upper_red)
+    # สร้าง binary mask เพื่อแสดงส่วนของภาพที่มีสีน้ำเงินอยู่ในช่วงที่กำหนด
+    mask = cv2.inRange(hsv_image, lower_blue, upper_blue) 
 
     # ค้นหาเส้นขอบ
     contours, _ = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
